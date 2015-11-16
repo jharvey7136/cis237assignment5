@@ -1,6 +1,6 @@
-﻿//Author: David Barnes
+﻿//Author: John Harvey
 //CIS 237
-//Assignment 1
+//Assignment 5
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,197 +11,136 @@ namespace assignment1
 {
     class UserInterface
     {
-        const int maxMenuChoice = 5;
-        //---------------------------------------------------
-        //Public Methods
-        //---------------------------------------------------
+        private int mainMenuSelection;
+        private string searchString;
+       
 
-        //Display Welcome Greeting
-        public void DisplayWelcomeGreeting()
+
+
+
+        BeverageJHarveyEntities beveragesJHarveyEntities = new BeverageJHarveyEntities();
+
+
+
+        public UserInterface()
         {
-            Console.WriteLine("Welcome to the wine program");
         }
 
-        //Display Menu And Get Response
-        public int DisplayMenuAndGetResponse()
+        public void MainMenu()
         {
-            //declare variable to hold the selection
-            string selection;
 
-            //Display menu, and prompt
-            this.displayMenu();
-            this.displayPrompt();
 
-            //Get the selection they enter
-            selection = this.getSelection();
+            Console.WriteLine("Welcome To The Wine Collection Database\n");
 
-            //While the response is not valid
-            while (!this.verifySelectionIsValid(selection))
+
+
+            while (mainMenuSelection != 1 || mainMenuSelection != 2 || mainMenuSelection != 3 || mainMenuSelection != 4 ||
+                mainMenuSelection != 5 || mainMenuSelection != 6)
             {
-                //display error message
-                this.displayErrorMessage();
+                Console.WriteLine("1: Print Entire Wine Item List");
+                Console.WriteLine("2: Search By Wine ID");
+                Console.WriteLine("3: Add Wine Item To List");
+                Console.WriteLine("4: Update Existing Wine Item");
+                Console.WriteLine("5: Delete Existing Wine Item");
+                Console.WriteLine("6: Exit\n");
+                Console.Write("Enter Selection: ");
 
-                //display the prompt again
-                this.displayPrompt();
+                try
+                {
+                    mainMenuSelection = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
 
-                //get the selection again
-                selection = this.getSelection();
-            }
-            //Return the selection casted to an integer
-            return Int32.Parse(selection);
-        }
+                    if (mainMenuSelection == 1)
+                        PrintWineList();
 
-        //Get the search query from the user
-        public string GetSearchQuery()
-        {
-            Console.WriteLine();
-            Console.WriteLine("What would you like to search for?");
-            Console.Write("> ");
-            return Console.ReadLine();
-        }
+                    if (mainMenuSelection == 2)
+                        SearchForWine();
 
-        //Get New Item Information From The User.
-        public string[] GetNewItemInformation()
-        {
-            Console.WriteLine();
-            Console.WriteLine("What is the new items Id?");
-            Console.Write("> ");
-            string id = Console.ReadLine();
-            Console.WriteLine("What is the new items Description?");
-            Console.Write("> ");
-            string description = Console.ReadLine();
-            Console.WriteLine("What is the new items Pack?");
-            Console.Write("> ");
-            string pack = Console.ReadLine();
+                    if (mainMenuSelection == 3)
+                        AddWine();
 
-            return new string[] { id, description, pack };
-        }
+                    if (mainMenuSelection == 4)
+                        UpdateWine();
 
-        //Display Import Success
-        public void DisplayImportSuccess()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Wine List Has Been Imported Successfully");
-        }
+                    if (mainMenuSelection == 5)
+                        DeleteWine();
 
-        //Display Import Error
-        public void DisplayImportError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("There was an error importing the CSV");
-        }
+                    if (mainMenuSelection == 6)
+                        Environment.Exit(0);
 
-        //Display All Items
-        public void DisplayAllItems(string[] allItemsOutput)
-        {
-            Console.WriteLine();
-            foreach (string itemOutput in allItemsOutput)
-            {
-                Console.WriteLine(itemOutput);
+                    if (mainMenuSelection > 6 || mainMenuSelection < 0)
+                        Console.WriteLine("Input Must Be Integer Between 1 - 6\n");
+
+                }
+                catch
+                {                    
+                    Console.WriteLine("Input Must Be Integer Between 1 - 6\n");
+                }
+
             }
         }
 
-        //Display All Items Error
-        public void DisplayAllItemsError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("There are no items in the list to print");
-        }
 
-        //Display Item Found Success
-        public void DisplayItemFound(string itemInformation)
+        public void PrintWineList()
         {
+            foreach (Beverage beverage in beveragesJHarveyEntities.Beverages)
+            {
+                Console.WriteLine(beverage.id + " " + beverage.name + " " + beverage.pack + " " + beverage.price);
+            }
             Console.WriteLine();
-            Console.WriteLine("Item Found!");
-            Console.WriteLine(itemInformation);
-        }
-
-        //Display Item Found Error
-        public void DisplayItemFoundError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("A Match was not found");
-        }
-
-        //Display Add Wine Item Success
-        public void DisplayAddWineItemSuccess()
-        {
-            Console.WriteLine();
-            Console.WriteLine("The Item was successfully added");
-        }
-
-        //Display Item Already Exists Error
-        public void DisplayItemAlreadyExistsError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("An Item With That Id Already Exists");
         }
 
 
-        //---------------------------------------------------
-        //Private Methods
-        //---------------------------------------------------
 
-        //Display the Menu
-        private void displayMenu()
+        public void SearchForWine()
         {
-            Console.WriteLine();
-            Console.WriteLine("What would you like to do?");
-            Console.WriteLine();
-            Console.WriteLine("1. Load Wine List From CSV");
-            Console.WriteLine("2. Print The Entire List Of Items");
-            Console.WriteLine("3. Search For An Item");
-            Console.WriteLine("4. Add New Item To The List");
-            Console.WriteLine("5. Exit Program");
-        }
-
-        //Display the Prompt
-        private void displayPrompt()
-        {
-            Console.WriteLine();
-            Console.Write("Enter Your Choice: ");
-        }
-
-        //Display the Error Message
-        private void displayErrorMessage()
-        {
-            Console.WriteLine();
-            Console.WriteLine("That is not a valid option. Please make a valid choice");
-        }
-
-        //Get the selection from the user
-        private string getSelection()
-        {
-            return Console.ReadLine();
-        }
-
-        //Verify that a selection from the main menu is valid
-        private bool verifySelectionIsValid(string selection)
-        {
-            //Declare a returnValue and set it to false
-            bool returnValue = false;
-
+            Console.Write("Enter Wine ID: ");
             try
             {
-                //Parse the selection into a choice variable
-                int choice = Int32.Parse(selection);
-
-                //If the choice is between 0 and the maxMenuChoice
-                if (choice > 0 && choice <= maxMenuChoice)
-                {
-                    //set the return value to true
-                    returnValue = true;
-                }
+                searchString = Console.ReadLine();
+                Console.WriteLine();
+                Beverage beverageToFind = beveragesJHarveyEntities.Beverages.Where(c => c.id == searchString).First();
+                Console.WriteLine(beverageToFind.id + " " + beverageToFind.name + " " + beverageToFind.pack + " " + beverageToFind.price);
+                Console.WriteLine();
             }
-            //If the selection is not a valid number, this exception will be thrown
-            catch (Exception e)
+            catch
             {
-                //set return value to false even though it should already be false
-                returnValue = false;
+                Console.WriteLine("Error - Wine Not Found\n");
             }
-
-            //Return the reutrnValue
-            return returnValue;
         }
+
+        public void AddWine()
+        {
+            Beverage newBevToAdd = new Beverage();
+
+            Console.Write("Enter Wine ID: ");
+            newBevToAdd.id = Console.ReadLine();
+
+            Console.Write("Enter Wine Name: ");
+            newBevToAdd.name = Console.ReadLine();
+
+            Console.Write("Enter Wine Pack: ");
+            newBevToAdd.pack = Console.ReadLine();
+
+            Console.Write("Enter Wine Price: ");
+            newBevToAdd.price = int.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+            beveragesJHarveyEntities.Beverages.Add(newBevToAdd);
+            //beveragesJHarveyEntities.SaveChanges();
+
+        }
+
+        public void UpdateWine()
+        {
+
+        }
+
+        public void DeleteWine()
+        {
+
+        }
+
+
     }
 }
