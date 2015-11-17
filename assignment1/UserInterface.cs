@@ -12,7 +12,7 @@ namespace assignment1
     class UserInterface
     {
         private int mainMenuSelection;
-        private string searchString;
+        private string searchString, updateString;
        
 
 
@@ -133,6 +133,33 @@ namespace assignment1
 
         public void UpdateWine()
         {
+            Console.Write("Enter Wine ID To Update: ");
+            try
+            {
+                
+
+                Beverage bevToUpdate = beveragesJHarveyEntities.Beverages.Find(Console.ReadLine());
+                
+
+                Console.Write("Enter New Wine ID: ");
+                bevToUpdate.id = Console.ReadLine();
+
+                Console.Write("Enter New Wine Name: ");
+                bevToUpdate.name = Console.ReadLine();
+
+                Console.Write("Enter New Wine Pack: ");
+                bevToUpdate.pack = Console.ReadLine();
+
+                Console.Write("Enter New Wine Price: ");
+                bevToUpdate.price = int.Parse(Console.ReadLine());
+                beveragesJHarveyEntities.SaveChanges();
+            }
+            catch
+            {
+                Console.WriteLine("Error - Wine ID Not Found\n");
+
+            }
+
 
         }
 
