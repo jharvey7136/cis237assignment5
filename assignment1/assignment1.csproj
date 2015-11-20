@@ -73,11 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="WineDBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>WineDBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="packages.config" />
     <None Include="WineDBContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WineDBContext.edmx</DependentUpon>

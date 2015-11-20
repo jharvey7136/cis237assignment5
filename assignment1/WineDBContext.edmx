@@ -6,26 +6,11 @@
     <edmx:StorageModels>
       <Schema Namespace="BeverageJHarveyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="BeverageJHarveyModelStoreContainer">
-          <EntitySet Name="Beverages" EntityType="BeverageJHarveyModel.Store.Beverages" store:Type="Tables" store:Schema="dbo" store:Name="Beverages">
-            <DefiningQuery>SELECT 
-      [Beverages].[id] AS [id], 
-      [Beverages].[name] AS [name], 
-      [Beverages].[pack] AS [pack], 
-      [Beverages].[price] AS [price], 
-      [Beverages].[active] AS [active]
-      FROM [dbo].[Beverages] AS [Beverages]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Beverages" EntityType="BeverageJHarveyModel.Store.Beverages" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'BeverageJHarvey.dbo.Beverages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="Beverages">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="pack" />
-            <PropertyRef Name="price" />
-            <PropertyRef Name="active" />
           </Key>
           <Property Name="id" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="name" Type="nchar" Nullable="false" MaxLength="100" />
@@ -38,16 +23,12 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BeverageJHarveyModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="BeverageJHarveyEntities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="BeverageJHarveyEntities1" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Beverages" EntityType="BeverageJHarveyModel.Beverage" />
         </EntityContainer>
         <EntityType Name="Beverage">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="pack" />
-            <PropertyRef Name="price" />
-            <PropertyRef Name="active" />
           </Key>
           <Property Name="id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
@@ -60,7 +41,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BeverageJHarveyModelStoreContainer" CdmEntityContainer="BeverageJHarveyEntities">
+        <EntityContainerMapping StorageEntityContainer="BeverageJHarveyModelStoreContainer" CdmEntityContainer="BeverageJHarveyEntities1">
           <EntitySetMapping Name="Beverages">
             <EntityTypeMapping TypeName="BeverageJHarveyModel.Beverage">
               <MappingFragment StoreEntitySet="Beverages">
