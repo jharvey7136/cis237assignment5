@@ -137,8 +137,9 @@ namespace assignment1
                 Console.WriteLine("Wine Add Successful\n");
             }
             catch
-            {   //Error message if Wine ID already exists in collection, or if input is bad             
-                Console.WriteLine("Error - Bad Input, Wine ID Already Exists -  Wine Add Unsuccessful\n");
+            {   //Error message if Wine ID already exists in collection, or if input is bad
+                Console.WriteLine();
+                Console.WriteLine("Error - Bad Input, Wine ID May Already Exist -  Wine Add Unsuccessful\n");
             }
         }
         //********************************END METHOD TO ADD NEW WINE***********************************************//

@@ -10,10 +10,15 @@ This program will connect to a Beverage/Wine database using the Entity Framework
 
 Main Menu: (Loops until user decides to exit)
 1. Print list: If 1 is selected, the entire wine item list will be printed to the screen.
+
 2. Search: If 2 is selected, the user will be prompted to enter a Wine ID. If the wine item is found, it will be printed to screen along with its name, pack, and price. The user will get an error message if the wine ID is not found within the database.
+
 3. Add Wine: If 3 is selected, the user will be prompted with a series of questions regarding the wine ID, name, pack, and price to add to database.
+
 4. Update Wine: If 4 is selected, the user will be prompted to enter the wine ID of the wine item they would like to update. If found, the user will have a chance to confirm they entered the correct wine ID. The user will then be able to update the wine name, pack, and price. The user will get an error message if the wine ID is not found within the database.
+
 5. Delete Wine: If 5 is selected, the user will be prompted to enter the wine ID of the wine item they would like to delete. The user will have a chance to confirm they entered the correct wine ID. The user will get an error message if the wine ID is not found within the database.
+
 6. Exit: If 6 is selected, the program will close.
 
 ## Description
@@ -70,7 +75,7 @@ Solution Requirements:
 * UI Class to handle I/O
 
 ### Notes
-
+All solution requirements met. 
 
 ## Outside Resources Used
 I referred to my assignment 1, along with our in class assignment 5. I did not use anybody elses code or any online resources. 
