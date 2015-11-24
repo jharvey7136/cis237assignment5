@@ -9,6 +9,7 @@ John Harvey
 This program will connect to a Beverage/Wine database using the Entity Framework model. Upon running the program, the user will be prompted with a main menu offering six selection choices. The user will be able to print the entire wine item list, search for a wine by ID, add a wine item to the list, update an existing wine item, delete an existing wine item, or exit the program. 
 
 Main Menu: (Loops until user decides to exit)
+
 1. Print list: If 1 is selected, the entire wine item list will be printed to the screen.
 
 2. Search: If 2 is selected, the user will be prompted to enter a Wine ID. If the wine item is found, it will be printed to screen along with its name, pack, and price. The user will get an error message if the wine ID is not found within the database.
@@ -82,4 +83,5 @@ I referred to my assignment 1, along with our in class assignment 5. I did not u
 
 ## Known Problems, Issues, And/Or Errors in the Program
 I have attempted to break the program with bad input in every situation but so far haven't been able to. The program seems to be fully functional and user friendly.
+I used a lot of try catches to handle errors.
 
